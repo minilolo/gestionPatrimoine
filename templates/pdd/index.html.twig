@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Point de dossier{% endblock %}
+
+{% block content %}
+<a href="{{ path("create_pdd")}}" class="btn btn-primary btn-icon-split btn-lg">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Archiver un point de dossier</span>
+                                    </a>
+                        
+{% endblock %}
+

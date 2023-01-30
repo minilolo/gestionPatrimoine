@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client list{% endblock %}
+
+{% block content %}
+                              
+                                <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des reçus</h4>
+                        <input type="text" id="search-input" placeholder="Search">
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ path("create_recu")}}" class="btn btn-primary btn-icon-split btn-lg">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Insérer un Reçu</span>
+                                    </a>
+                        
+                         </div>
+                    
+                </div>
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Matricule</th>
+                        <th>Compte</th>
+                        <th>Object</th>
+                        <th>moyen</th>
+                        <th>Montant en Ar</th>
+                       <th>Montant en Lettre</th>
+                       <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                       <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Matricule</th>
+                        <th>Compte</th>
+                        <th>Object</th>
+                        <th>moyen</th>
+                        <th>Montant en Ar</th>
+                       <th>Montant en Lettre</th>
+                       <th>Status</th>
+                    </tr>
+                    </tfoot>
+                    <tbody id="table-id">
+                    {% for recu in recus %}
+                        <tr>
+                            <td>{{ recu.client.nom }}</td> 
+                            <td>{{ recu.client.prenom }}</td>
+                            
+                            <td>{{ recu.matricule }}</td>
+                            <td>{{ recu.compte }}</td>
+                            <td>{{ recu.objet }}</td>
+                            <td>{{ recu.moyen }}</td>
+                            <!-- WTF, tsy zao ny fanoratana anle montant_ariary de nefa mande p$$$ le izy -->
+                            <td>{{ recu.montantariary }}</td>
+                            <td>{{ recu.montantlettre }}</td>
+                            <!-- Mety hoe ignoreny le "_" -->
+                            <td>{{ recu.status }}</td>
+                            
+                            
+                           
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+                              
+     <script>
+                    document.getElementById("search-input").addEventListener("keyup", function() {
+                        let input = this.value.toLowerCase();
+                        let rows = document.getElementById("table-id").getElementsByTagName("tr");
+
+                        for (let i = 0; i < rows.length; i++) {
+                            let cells = rows[i].getElementsByTagName("td");
+                            let found = false;
+
+                            for (let j = 0; j < cells.length; j++) {
+                                if (cells[j].innerHTML.toLowerCase().indexOf(input) > -1) {
+                                    found = true;
+                                }
+                            }
+
+                            if (found) {
+                                rows[i].style.display = "";
+                            } else {
+                                rows[i].style.display = "none";
+                            }
+                        }
+                    });
+</script>      
+                                        
+                                    
+{% endblock %}
