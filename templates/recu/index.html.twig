@@ -24,15 +24,14 @@
                          </div>
                     
                 </div>
-                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="dataTable" class="table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Matricule</th>
-                        <th>Compte</th>
-                        <th>Object</th>
-                        <th>moyen</th>
+                        
+                        <th>Moyen</th>
                         <th>Montant en Ar</th>
                        <th>Montant en Lettre</th>
                        <th>Status</th>
@@ -43,8 +42,7 @@
                        <th>Nom</th>
                         <th>Prénom</th>
                         <th>Matricule</th>
-                        <th>Compte</th>
-                        <th>Object</th>
+                        
                         <th>moyen</th>
                         <th>Montant en Ar</th>
                        <th>Montant en Lettre</th>
@@ -58,8 +56,7 @@
                             <td>{{ recu.client.prenom }}</td>
                             
                             <td>{{ recu.matricule }}</td>
-                            <td>{{ recu.compte }}</td>
-                            <td>{{ recu.objet }}</td>
+                           
                             <td>{{ recu.moyen }}</td>
                             <!-- WTF, tsy zao ny fanoratana anle montant_ariary de nefa mande p$$$ le izy -->
                             <td>{{ recu.montantariary }}</td>

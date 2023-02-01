@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\PointDeDossier;
 use App\Form\PddType;
 use App\Repository\ClientRepository;
+use App\Repository\PointDeDossierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class PddController extends AbstractController
 {
     #[Route('/pdd', name: 'app_pdd')]
-    public function index(): Response
+    public function index(PointDeDossierRepository $pointDeDossierRepository): Response
     {
+
+        $pdd = $pointDeDossierRepository->findAll();
         return $this->render('pdd/index.html.twig', [
             'controller_name' => 'PddController',
+            'pdds' => $pdd,
         ]);
     }
 
@@ -54,7 +58,7 @@ class PddController extends AbstractController
             $entityManager->flush();
             
 
-            return $this->redirectToRoute('app_pdf');
+            return $this->redirectToRoute('app_pdd');
         }
 
         return $this->render('pdd/pdd_upload.html.twig', [
