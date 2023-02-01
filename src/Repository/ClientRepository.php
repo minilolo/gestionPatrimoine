@@ -49,6 +49,34 @@ class ClientRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function countAll()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            
+            
+            ->getQuery()->getSingleScalarResult();
+    }
+
+    public function countAllActive()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            ->andWhere('s.status = 1')
+
+            
+            
+            ->getQuery()->getSingleScalarResult();
+    }
+
+    public function countCredit(){
+        return $this->createQueryBuilder('s')
+        ->select('sum(s.montant)')
+        
+        
+        ->getQuery()->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Client[] Returns an array of Client objects
 //     */

@@ -17,12 +17,18 @@ class ClientType extends AbstractType
         $builder
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
+            ->add('adresse', TextType::class)
             ->add('birth_date', BirthdayType::class, [
                 'placeholder' => 'Select a value',
             ])
             ->add('montant', MoneyType::class, [
                 'currency' => 'MGA',
             ])
+            ->add('total', MoneyType::class, [
+                'currency' => 'MGA',
+                
+            ])
+            
             
         ;
     }

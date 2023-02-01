@@ -43,11 +43,21 @@ class Client
     #[ORM\Column(length: 255)]
     private ?string $montant = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $total = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Action::class)]
+    private Collection $actions;
+
     public function __construct()
     {
         $this->recus = new ArrayCollection();
         $this->pdfEntities = new ArrayCollection();
         $this->pointDeDossiers = new ArrayCollection();
+        $this->actions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,6 +223,60 @@ class Client
     public function setMontant(string $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getTotal(): ?string
+    {
+        return $this->total;
+    }
+
+    public function setTotal(string $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Action>
+     */
+    public function getActions(): Collection
+    {
+        return $this->actions;
+    }
+
+    public function addAction(Action $action): self
+    {
+        if (!$this->actions->contains($action)) {
+            $this->actions->add($action);
+            $action->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAction(Action $action): self
+    {
+        if ($this->actions->removeElement($action)) {
+            // set the owning side to null (unless already changed)
+            if ($action->getClient() === $this) {
+                $action->setClient(null);
+            }
+        }
 
         return $this;
     }

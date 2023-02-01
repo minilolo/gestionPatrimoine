@@ -3,7 +3,41 @@
 
 {% block content %}
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Register</button>
+    <div class="col-md-6">
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h6>Information</h6>
+                            {{ form_row(form.matricule) }}
+                            
+                        </div>
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            
+                            
+                            {{ form_row(form.moyen) }}
+                            {{ form_row(form.montant_ariary) }}
+                            {{ form_row(form.montant_lettre) }}
+                        </div>
+                        
+                        <div class="bd mb-1 bgc-grey p-20 sk-bd">
+                            <h5>Client</h5>
+                            {{ form_row(form.clientNom) }}
+                            {{ form_row(form.clientPrenom) }}
+                            
+
+                        </div>
+                        
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h6>Date de creation</h6>
+                            {{ form_widget(form.dateCreate) }}
+                            
+
+                        </div>
+                    </div>
+                   
+                </div>
+    <div class="col-md-12 d-block mt-2 text-center">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    </button>
+                </div>
 {{ form_end(form) }}
 {% endblock %}

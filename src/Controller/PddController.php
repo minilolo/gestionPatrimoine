@@ -32,10 +32,10 @@ class PddController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $file */
-            $file = $pdd->getPdfFile();
+            $file = $pdd->getPddFile();
 
             $title = $pdd->getTitle() . ".pdf";
-            $client = $pdd->getClient();
+            
             $pdd->setFilePath($title);
             $file->move(
                 $this->getParameter('pdf_directory'),

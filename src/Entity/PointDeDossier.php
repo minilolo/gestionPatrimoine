@@ -29,11 +29,11 @@ class PointDeDossier
     private ?Client $client = null;
 
     /**
-     * @Vich\UploadableField(mapping="pdf_files", fileNameProperty="pdfName")
+     * @Vich\UploadableField(mapping="pdd_files", fileNameProperty="pddName")
      * 
      * @var File
      */
-    private $pdfFile;
+    private $pddFile;
 
     public function getId(): ?int
     {
@@ -88,13 +88,13 @@ class PointDeDossier
         return $this;
     }
 
-    public function getPdfFile()
+    public function getPddFile()
     {
-        return $this->pdfFile;
+        return $this->pddFile;
     }
 
-    public function setPdfFile($pdfFile)
+    public function setPddFile($pddFile)
     {
-        $this->pdfFile = $pdfFile;
+        $this->pddFile = $pddFile;
     }
 }

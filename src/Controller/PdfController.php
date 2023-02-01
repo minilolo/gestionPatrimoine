@@ -18,12 +18,16 @@ class PdfController extends AbstractController
     #[Route('/pdf', name: 'app_pdf')]
     public function index(PdfEntityRepository $pdfEntityRepository): Response
     {
-        $pdf = $pdfEntityRepository->findAll();
+        if($pdfEntityRepository->findAll())
+        {
+            $pdf = $pdfEntityRepository->findAll();
+            return $this->render('pdf/index.html.twig', [
+                'pdfs' => $pdf,
+                'controller_name' => 'PdfController',
+            ]);
+        }
 
-        return $this->render('pdf/index.html.twig', [
-            'pdfs' => $pdf,
-            'controller_name' => 'PdfController',
-        ]);
+        return $this->redirectToRoute('create_pdf');
     }
 
     #[Route('/create_pdf', name: 'create_pdf')]
@@ -39,7 +43,7 @@ class PdfController extends AbstractController
             $file = $pdf->getPdfFile();
 
             $title = $pdf->getTitle() . ".pdf";
-            $client = $pdf->getClient();
+            
             $pdf->setFilePath($title);
             $file->move(
                 $this->getParameter('pdf_directory'),

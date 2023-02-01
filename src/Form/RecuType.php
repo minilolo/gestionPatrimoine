@@ -4,6 +4,7 @@ namespace App\Form;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Entity\Recu;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,17 +15,22 @@ class RecuType extends AbstractType
     {
         $builder
             ->add('matricule', TextType::class)
-            ->add('Compte', TextType::class)
-            ->add('objet', TextType::class )
+            
             ->add('moyen', TextType::class)
-            ->add('montant_ariary', MoneyType::class)
+            ->add('dateCreate', DateType::class)
+            ->add('montant_ariary', MoneyType::class, [
+                'currency' => 'MGA',
+                
+            ])
             ->add('montant_lettre', TextType::class)
             
             ->add('clientNom', TextType::class, [
                 'mapped' => false,
+                'label' => "nom client...",
             ])
             ->add('clientPrenom', TextType::class, [
                 'mapped' => false,
+                'label' => "prenom client...",
             ])
         ;
     }

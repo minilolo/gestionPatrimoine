@@ -40,8 +40,8 @@ class RecuController extends AbstractController
             $type = $form->getData();
             $date = new DateTime();
             $recu->setMatricule($type->getMatricule());
-            $recu->setCompte($type->getCompte());
-            $recu->setObjet($type->getObjet());
+            $recu->setCompte("LoloNULL");
+            $recu->setObjet("LoloNULL");
             $recu->setMoyen($type->getMoyen());
             $recu->setMontantAriary($type->getMontantAriary());
 
@@ -49,6 +49,7 @@ class RecuController extends AbstractController
             $recu->setMontantLettre($type->getMontantLettre());
             $recu->setDate($date);
             $recu->setStatus(False);
+            $recu->setDateCreate($type->getDateCreate());
             $nom = $form->get('clientNom')->getData();
             $prenom = $form->get('clientPrenom')->getData();
 
@@ -57,6 +58,7 @@ class RecuController extends AbstractController
             $recu->setClient($client);
             $montantClient = intval($client->getMontant());
             $client->setMontant($montantClient - intval($type->getMontantAriary()));
+
             $em->persist($recu);
             $em->flush();
             return $this->redirectToRoute('app_recu');

@@ -47,6 +47,8 @@ class ClientController extends AbstractController
             $Client->setDateInsertion($date);
             $Client->setStatus(True);
             $Client->setMontant($type->getMontant());
+            $Client->setTotal($type->getTotal());
+            $Client->setAdresse($type->getAdresse());
             
             $em->persist($Client);
             $em->flush();
