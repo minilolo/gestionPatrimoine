@@ -9,12 +9,28 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+    role_hierarchy:
+        ROLE_COMPTA: [ROLE_USER]
+        ROLE_ADMIN: [ROLE_USER]
+        ROLE_ASSISTANTE: [ROLE_USER]
+        ROLE_DG: [ROLE_USER, ROLE_ADMIN, ROLE_COMPTA,ROLE_ASSISTANTE, ROLE_PRMP, ROLE_DAF, ROLE_SAD, ROLE_SND, ROLE_RH]
+        ROLE_PRMP: [ROLE_USER]
+        ROLE_DAF: [ROLE_USER]
+        ROLE_SAD: [ROLE_USER]
+        ROLE_SND: [ROLE_USER]
+        ROLE_RH: [ROLE_USER]
+        ROLE_DAJ: [ROLE_USER, ROLE_ADMIN]
+        ROLE_SCOFI: [ROLE_USER]
+        
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
             provider: app_user_provider
             custom_authenticator: App\Security\UserAuthenticator
             logout:
@@ -32,9 +48,16 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-
+        - { path: ^/admin, roles: ROLE_ADMIN }           
+        - { path: ^/compta, roles: ROLE_COMPTA }
+        - { path: ^/assistant, roles: ROLE_ASSISTANTE}
+        - { path: ^/personnel, roles: ROLE_RH}
+        - { path: ^/DG, roles: ROLE_DG}
+        - { path: ^/prmp, roles: ROLE_PRMP}
+        - { path: ^/daf, roles: ROLE_DAF}
+        - { path: ^/sad, roles: ROLE_SAD}
+        - { path: ^/snd, roles: ROLE_SND}
+    
 when@test:
     security:
         password_hashers:

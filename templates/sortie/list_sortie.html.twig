@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CHECK PRODUIT{% endblock %}
+
+{% block content %}
+
+
+                                             <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des entrers</h4>
+                        
+
+                        <div class="input-group input-group-sm mb-3 ">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-success" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                                <input type="text" id="search-input" placeholder="Search" class="border border-success">
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6 text-right">
+                       <a href="{{ path("create_entrer")}}" class="btn btn-success btn-icon-split btn-lg">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Inserer un entrer</span>
+                                    </a>
+                        
+                    
+                </div>
+                <div class="col-md-6">
+                        <button onclick="downloadAsExcel()" class="btn btn-icon-split btn-lg btn-warning" >Download as Excel</button>
+                </div>
+                <div class="table-responsive">
+                    <table id="dataTable" class="table table-striped table-hover table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Categories</th>
+                        <th>Amount</th>
+                        <th>Date("d-m-Y")</th>
+                        <th>Methode</th>
+                        
+                        
+                        
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                      <th>Categories</th>
+                        <th>Amount</th>
+                        <th>Date("d-m-Y")</th>
+                        <th>Methode</th>
+                        
+                    </tr>
+                    </tfoot>
+                    <tbody id="table-id">
+                    {% for sortie in sorties %}
+                        <tr>
+                            <td class="open-pdf">{{ sortie.categorie }}</td> 
+                            
+                            
+                            <td>{{ sortie.amount }}</td>
+                            <td>{{ sortie.date|date("d-m-Y") }}</td>
+                            <td >{{ sortie.method }}</td> 
+                            
+
+                            
+                            
+                           
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+                        <script>
+                        
+                    function downloadAsExcel() {
+                    // Define your data
+                   
+                    var table = document.getElementById("dataTable");
+                    var tableData = [ ['categorie', 'amount', 'date', 'method']];
+
+                    for (var i = 1, row; row = table.rows[i]; i++) {
+                    var rowData = [];
+                    for (var j = 0, col; col = row.cells[j]; j++) {
+                        rowData.push(col.innerText);
+                    }
+                    tableData.push(rowData);
+                    }
+
+                    console.log(tableData);
+                                        
+                    var koko = [
+                        ['categorie', 'amount', 'date', 'method']
+                        
+                    ];
+                     
+                    
+                    
+
+                     
+                
+
+               
+                    // Create a new instance of the XLSX object
+                    var wb = XLSX.utils.book_new();
+
+                    // Create a new sheet and add the data
+                    var ws = XLSX.utils.aoa_to_sheet(tableData);
+                    XLSX.utils.book_append_sheet(wb, ws, "sortie");
+
+                    // Download the spreadsheet as an XLSX file
+                    XLSX.writeFile(wb, "sortie.xlsx");
+    }
+
+
+                    document.getElementById("search-input").addEventListener("keyup", function() {
+                        let input = this.value.toLowerCase();
+                        let rows = document.getElementById("table-id").getElementsByTagName("tr");
+
+                        for (let i = 0; i < rows.length; i++) {
+                            let cells = rows[i].getElementsByTagName("td");
+                            let found = false;
+
+                            for (let j = 0; j < cells.length; j++) {
+                                if (cells[j].innerHTML.toLowerCase().indexOf(input) > -1) {
+                                    found = true;
+                                }
+                            }
+
+                            if (found) {
+                                rows[i].style.display = "";
+                            } else {
+                                rows[i].style.display = "none";
+                            }
+                        }
+                    });
+</script>      
+{% endblock %}

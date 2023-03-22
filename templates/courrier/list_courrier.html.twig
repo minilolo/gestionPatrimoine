@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CHECK COURRIER{% endblock %}
+
+{% block content %}
+
+
+                                             <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des courriers</h4>
+                        
+
+                        <div class="input-group input-group-sm mb-3 ">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-success" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                                <input type="text" id="search-input" placeholder="Search" class="border border-success">
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6 text-right">
+                       <a href="{{ path("create_courrier")}}" class="btn btn-primary btn-icon-split btn-lg">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Archiver un courrier</span>
+                                    </a>
+                        
+                    
+                </div>
+                <div class="table-responsive">
+
+                <table id="dataTable" class="table table-striped table-hover table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Client</th>
+                        <th>Date d'enregistrement("d-m-Y")</th>
+                        
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                      <th>Titre</th> 
+                        <th>Client</th>
+                        <th>Date d'enregistrement("d-m-Y")</th>
+                    </tr>
+                    </tfoot>
+                    <tbody id="table-id">
+                    {% for courrier in courriers %}
+                        <tr>
+                            <td ><a href="{{ path('download_courrier', {'filename': courrier.name}) }}">{{ courrier.name }}</a></td> 
+                            
+                            
+                            <td>{{ courrier.client.nom }} {{ courrier.client.prenom }}</td>
+                            <td>{{ courrier.updatedAt|date("d-m-Y") }}</td>
+                            
+                            
+                           
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                    <div>
+                            
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+                        <script>
+                        
+
+
+
+                    document.getElementById("search-input").addEventListener("keyup", function() {
+                        let input = this.value.toLowerCase();
+                        let rows = document.getElementById("table-id").getElementsByTagName("tr");
+
+                        for (let i = 0; i < rows.length; i++) {
+                            let cells = rows[i].getElementsByTagName("td");
+                            let found = false;
+
+                            for (let j = 0; j < cells.length; j++) {
+                                if (cells[j].innerHTML.toLowerCase().indexOf(input) > -1) {
+                                    found = true;
+                                }
+                            }
+
+                            if (found) {
+                                rows[i].style.display = "";
+                            } else {
+                                rows[i].style.display = "none";
+                            }
+                        }
+                    });
+
+                    $(document).ready(function() {
+                                
+                                $('#dataTable').DataTable({
+        
+                                 "searching": false
+                                });
+                                
+            });
+</script>      
+{% endblock %}

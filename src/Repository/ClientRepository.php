@@ -77,6 +77,8 @@ class ClientRepository extends ServiceEntityRepository
         ->getQuery()->getSingleScalarResult();
     }
 
+    
+
 //    /**
 //     * @return Client[] Returns an array of Client objects
 //     */

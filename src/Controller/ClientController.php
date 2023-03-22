@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
+use App\Repository\NotificationRepository;
+use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,21 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ClientController extends AbstractController
 {
-    #[Route('/client', name: 'app_client')]
-    public function index(ClientRepository $clientRepository): Response
+    #[Route('/admin/client', name: 'app_client')]
+    public function index(NotificationRepository $notificationRepository, UserRepository $userRepository, ClientRepository $clientRepository): Response
     {
-        
+        $koko = $this->getUser();       
+        $user = $userRepository->findOneBy(['email' => $koko->getUserIdentifier()]);
+        $notifCounts = $notificationRepository->GetNotificationCountByUser($user);
+        $notifications = $user->getNotifications();
+
         $clientList = $clientRepository->findAll();
 
         return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
-            'clients' => $clientList
+            'clients' => $clientList,
+            'notifications' => $notifications,
+                'notifCounts' => $notifCounts,
         ]);
     }
 
-    #[Route('/create_client', name: 'create_client', methods:["GET", "POST"])]
-    public function add(Request $request, EntityManagerInterface $em): Response
+    #[Route('/admin/create_client', name: 'create_client', methods:["GET", "POST"])]
+    public function add(NotificationRepository $notificationRepository, UserRepository $userRepository,Request $request, EntityManagerInterface $em): Response
     {
+        $koko = $this->getUser();       
+        $user = $userRepository->findOneBy(['email' => $koko->getUserIdentifier()]);
+        $notifCounts = $notificationRepository->GetNotificationCountByUser($user);
+        $notifications = $user->getNotifications();
+
         $Client = new Client();
         $form = $this->createForm(
             ClientType::class,
@@ -49,14 +62,18 @@ class ClientController extends AbstractController
             $Client->setMontant($type->getMontant());
             $Client->setTotal($type->getTotal());
             $Client->setAdresse($type->getAdresse());
-            
+            $Client->setOrigin($type->getOrigin());
+
+
             $em->persist($Client);
             $em->flush();
             return $this->redirectToRoute('app_client');
             
         }
         return $this->render('client/create_client.html.twig', [
-            'form' => $form
+            'form' => $form,
+            'notifications' => $notifications,
+                'notifCounts' => $notifCounts,
         ]);
 
     }

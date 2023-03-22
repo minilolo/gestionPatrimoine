@@ -18,6 +18,7 @@ class ClientType extends AbstractType
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
             ->add('adresse', TextType::class)
+            ->add('origin', TextType::class)
             ->add('birth_date', BirthdayType::class, [
                 'placeholder' => 'Select a value',
             ])

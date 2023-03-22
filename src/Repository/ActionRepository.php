@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Action;
+use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,15 @@ class ActionRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function actionByClient(){
+        return $this->createQueryBuilder('e')
+        ->select('u.id, e.nature, e.title, max(e.date) as koko')
+        ->join('e.client', 'u')
+        ->groupBy('u')
+        ->getQuery()
+        ->getResult();
     }
 
 //    /**

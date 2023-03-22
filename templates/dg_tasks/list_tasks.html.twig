@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DgTasksController!{% endblock %}
+
+{% block content %}
+<div>
+    {% for notification in notifications %}
+
+            {{notification}}
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+body {
+    background-color: lightgray;
+}
+
+
+#titre-sgr:hover{
+    font-size: large;
+}
+
+.row #coli {
+
+    background-color: rgb(230, 230, 230);
+    border : solid ;
+    border-width: 1px;
+    border-color: rgb(231, 235, 235);
+    color: rgb(0, 0, 0);
+    transition: 0.3s;
+}
+
+.row #coli:hover{
+    background-color: rgb(214, 214, 214);
+    border-color: rgb(149, 149, 149);
+} 
+
+#liste-instruction{
+    font-size: 20px;
+}
+
+#signature-loic{
+    transition: 0.3s;
+}
+
+#signature-loic:hover{
+    color: rgb(243, 202, 67);
+    font-size: 16px;
+}
+
+
+
+.wrapperer{
+    position: relative;
+    height: 50px;
+    width: 360px;
+    cursor: default;
+    background: linear-gradient(140deg, rgb(255, 218, 55), #29b015, rgb(251, 234, 49));   
+    
+    border-radius: 10px;
+    animation: dateAnimation 1.5s linear infinite;
+}
+.wrapperer .display,
+.wrapperer .span-date{
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.wrapperer .display{
+    
+    z-index: 999;
+    background: rgb(255, 255, 255);
+    height: 40px;
+    width: 350px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.wrapperer .display #datetime{
+    line-height: 10px;
+    
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(140deg, rgb(255, 218, 55), #29b015, rgb(251, 234, 49));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: dateAnimation 1.5s linear infinite;
+}
+
+@media (max-width: 767px) {
+    .wrapperer {
+      background-color: blue;
+      color: black;
+    }
+  }
+
+
+@keyframes dateAnimation{
+    100%{
+        filter: hue-rotate(10deg);
+    }
+}
+
+.wrapperer .span-date{
+    height: 00%;
+    width: 100%;
+    background: inherit;
+}
+.wrapperer .span-date:first-child{
+    filter: blur(10px);
+}
+.wrapperer .span-date:last-child{
+    filter: blur(20px);
+}

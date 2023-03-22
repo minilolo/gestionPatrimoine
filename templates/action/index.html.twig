@@ -9,10 +9,35 @@
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
                 <div class="row">
                     
-                    <div class="col-md-6">
+                    <div class="col-md-6 text-left">
+
                         <h4 class="c-grey-900 mB-20">Liste des actions entreprises</h4>
-                        <input type="text" id="search-input" placeholder="Search">
+                        <div class="input-group input-group-sm mb-3 ">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                                <input type="text" id="search-input" placeholder="Search" class="border border-primary">
+                        </div>
+
+                        <div class="">
+                                <div class="">
+                                    <button class="btn btn-success" type="button">
+                                    
+                                    <i class="fas fa-arrow-alt-circle-right fa-sm"></i>
+                                    <a href="{{ path("trier_action")}}" class="btn btn-success btn-icon-split btn-lg">
+                                        Date recente
+                                    </a>
+                                    
+                                    </button>
+                                </div>
+                                
+                        </div>
+                       
+                         
                     </div>
+                    
                     <div class="col-md-6 text-right">
                        <a href="{{ path("create_action")}}" class="btn btn-primary btn-icon-split btn-lg">
                                         <span class="icon text-white-50">
@@ -24,7 +49,8 @@
                          </div>
                     
                 </div>
-                <table id="dataTable" class="table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                <div class="table-responsive">
+<table id="dataTable" class="table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Client</th>
@@ -45,10 +71,10 @@
                     <tbody id="table-id">
                     {% for action in actions %}
                         <tr>
-                            <td>{{ action.client.nom }} {{ action.client.prenom }}</td> 
-                            <td>{{ action.title }}</td>
-                            <td>{{ action.date|date("d-m-y") }}</td>
-                            <td>{{ action.nature }}</td>
+                            <td >{{ action.client.nom }} {{ action.client.prenom }}</td> 
+                            <td >{{ action.title }}</td>
+                            <td >{{ action.date|date("d-m-y") }}</td>
+                            <td >{{ action.nature }}</td>
                             
                            
                             
@@ -58,6 +84,9 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                
+                </div>
+                
             </div>
         </div>
     </div>
@@ -84,6 +113,17 @@
                             }
                         }
                     });
+                     $(document).ready(function() {
+                                
+                                $('#dataTable').DataTable({
+        
+                                 "searching": false
+                                });
+                                
+            });
+
+                    
+                    
 </script>      
                         
 {% endblock %}

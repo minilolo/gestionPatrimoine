@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+{% block title %}ADD{% endblock %}
+
+{% block content %}
+{{ form_start(form) }}
+<h1>Courrier template</h1>
+<div></div>
+
+<div class="row">
+<div class="col" id="coli">  {{ form_row(form.client)}}  </div>
+<div class="col" id="coli">  {{ form_row(form.date)}}  </div>
+    
+    
+</div>
+ 
+ <div id="direction-dgtasks">
+ <div class="row">
+   <div class="col" id="coli"> {{ form_widget(form.ad) }}</div>
+     <div class="col" id="coli"> {{ form_widget(form.prmp) }}</div>
+       <div class="col" id="coli"> {{ form_widget(form.daj) }}</div>
+
+   
+   
+</div>
+<div class="row">
+  <div class="col" id="coli">{{ form_widget(form.daf) }}</div>
+    <div class="col" id="coli">{{ form_widget(form.snd) }}</div>
+      <div class="col" id="coli">{{ form_widget(form.srha) }}</div>
+
+
+    
+    
+</div>
+<div class="row">
+  <div class="col" id="coli">{{ form_widget(form.scofi) }}</div>
+    <div class="col" id="coli">    {{ form_widget(form.sad) }}</div>
+
+
+</div>
+   
+    
+    
+ </div >
+<div id="liste-dgtasks">
+    <div id="liste-instruction">
+            LISTE INSTRUCTION
+    </div>
+<div class="row">
+ <div class="col" id="coli">{{ form_widget(form.suiteADonner) }}</div>
+  <div class="col" id="coli">{{ form_widget(form.enParlerAuTelephone) }}</div>
+   <div class="col" id="coli"> {{ form_widget(form.venirEnParler) }}</div>
+    <div class="col" id="coli"> {{ form_widget(form.prospectionDeCandidature) }}</div>
+     <div class="col" id="coli"> {{ form_widget(form.avis) }}</div>
+
+     
+    
+    
+     
+</div>
+<div class="row">
+<div class="col" id="coli">{{ form_widget(form.garderEnInstance) }}</div>
+  <div class="col" id="coli">{{ form_widget(form.enFaireUneNote) }}</div>
+   <div class="col" id="coli">   {{ form_widget(form.affichage) }}</div>
+    <div class="col" id="coli">  {{ form_widget(form.copieAMeRetourner) }}</div>
+     <div class="col" id="coli">{{ form_widget(form.suivi) }}</div>
+
+     
+   
+    
+     
+</div>
+<div class="row">
+<div class="col" id="coli">{{ form_widget(form.attribution) }}</div>
+  <div class="col" id="coli">{{ form_widget(form.information) }}</div>
+   <div class="col" id="coli">{{ form_widget(form.rappeler) }}</div>
+    <div class="col" id="coli">{{ form_widget(form.rendreCompte) }}</div>
+     <div class="col" id="coli"> {{ form_widget(form.procedureASuivre) }}</div>
+ 
+     
+     
+     
+    
+</div>
+<div class="row">
+
+    <div class="col" id="coli"> {{ form_widget(form.representer) }}</div>
+  <div class="col" id="coli">{{ form_widget(form.etudeEtEnParler) }}</div>
+   <div class="col" id="coli">{{ form_widget(form.classement) }}</div>
+   
+     <div class="col" id="coli">{{ form_widget(form.remettre) }}</div>
+
+     
+     
+     
+</div>
+<div class="row">
+
+</div>
+ 
+     
+    
+    
+</div>
+    
+
+
+   <div class="col-md-12 d-block mt-2 text-center">
+                    <button type="submit" class="btn btn-lg btn-success">
+                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    </button>
+                </div>
+{{ form_end(form) }}
+{% endblock %}

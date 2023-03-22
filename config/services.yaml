@@ -6,6 +6,7 @@
 parameters:
     pdf_directory: '%kernel.project_dir%/public/pdfs'
     action_directory: '%kernel.project_dir%/public/actions'
+    courrier_directory: '%kernel.project_dir%/public/courriers'
 services:
     # default configuration for services in *this* file
     _defaults:

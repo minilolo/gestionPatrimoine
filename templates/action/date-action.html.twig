@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Action{% endblock %}
+
+{% block content %}
+
+ <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des actions entreprises les plus recentes</h4>
+                        <div class="input-group input-group-sm mb-3 ">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-success" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                                <input type="text" id="search-input" placeholder="Search" class="border border-primary">
+                        </div>
+                       
+                         
+                    </div>
+                    <div class="">
+                                <div class="">
+                                    <button class="btn btn-success" type="button">
+                                    
+                                    <i class="fas fa-arrow-alt-circle-right fa-sm"></i>
+                                    <a href="{{ path("app_action")}}" class="btn btn-success btn-icon-split btn-lg">
+                                        Date recente
+                                    </a>
+                                    
+                                    </button>
+                                </div>
+                                
+                        </div>
+                    <div class="col-md-6 text-right">
+                       <a href="{{ path("create_action")}}" class="btn btn-primary btn-icon-split btn-lg">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Enregistrer une action</span>
+                                    </a>
+                        
+                         </div>
+                    
+                </div>
+                <div class="table-responsive">
+
+                
+                </div>
+                <table id="dataTable" class="table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>titre</th>
+                        <th>date (j-m-A)</th>
+                        <th>nature</th>
+                        
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                       <th>Client</th>
+                        <th>title</th>
+                        <th>date</th>
+                        <th>nature</th>
+                    </tr>
+                    </tfoot>
+                    <tbody id="table-id">
+                    {% for trier in triers %}
+                        <tr>
+                            <td >{{ trier.client.nom }} {{ trier.client.prenom }}</td> 
+                            <td >{{ trier.title }}</td>
+                            <td >{{ trier.date|date("d-m-y") }}</td>
+                            <td >{{ trier.nature }}</td>
+                            
+                           
+                            
+                            
+                           
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+                              
+     <script>
+                    document.getElementById("search-input").addEventListener("keyup", function() {
+                        let input = this.value.toLowerCase();
+                        let rows = document.getElementById("table-id").getElementsByTagName("tr");
+
+                        for (let i = 0; i < rows.length; i++) {
+                            let cells = rows[i].getElementsByTagName("td");
+                            let found = false;
+
+                            for (let j = 0; j < cells.length; j++) {
+                                if (cells[j].innerHTML.toLowerCase().indexOf(input) > -1) {
+                                    found = true;
+                                }
+                            }
+
+                            if (found) {
+                                rows[i].style.display = "";
+                            } else {
+                                rows[i].style.display = "none";
+                            }
+                        }
+                    });
+
+                    $(document).ready(function() {
+                                
+                                $('#dataTable').DataTable({
+        
+                                 "searching": false
+                                });
+                                
+            });
+                    
+</script>      
+                        
+{% endblock %}
